@@ -13,9 +13,10 @@ jobs:
       - name: Minify Action
         uses: anthonyftwang/minify-action@v1.0.1
 
-      - name: copy to build folder
+      - name: Copy to build folder
         run: |
-          cp -r ./* ./build/
+          mkdir build
+          cp -r * build
       
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.4
