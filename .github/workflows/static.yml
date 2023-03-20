@@ -15,7 +15,7 @@ jobs:
 
       - name: copy to build folder
         run: |
-          cp -r ./ ./build/
+          cp -r ./* ./build/
       
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.4
