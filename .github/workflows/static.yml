@@ -12,19 +12,28 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Minify JS, CSS, and HTML
-        uses: anthonyftwang/minify-action@v1.0.1
+name: Minify Workflow
+on:
+  push:
+    branches: [ foo ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository
+      - uses: actions/checkout@v2
         with:
-          source: |
-            ./dist/**/*.js
-            ./dist/**/*.css
-            ./dist/**/*.html
-          html-minifier-options: |
-            --collapse-whitespace
-            --remove-comments
-          css-minifier-options: |
-            --compatibility=ie8
-            --skip-cleaning
+          ref: ${{ github.ref }}
+
+      - name: Minify Action
+        uses: anthonyftwang/minify-action@v1.0.1
+
+      # Auto-commit to repository
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Minify source code
+          branch: ${{ github.ref }}
           
       - name: Deploy to GH Pages
         uses: peaceiris/actions-gh-pages@v3
