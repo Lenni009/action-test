@@ -13,9 +13,11 @@ jobs:
       - name: Minify Action
         uses: anthonyftwang/minify-action@v1.0.1
 
-      # Auto-commit to repository
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: copy to build folder
+        run: |
+          cp -r ./ ./build/
+      
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.4
         with:
-          push_options: --force
-          commit_message: Minify source code
-          branch: gh-pages
+          folder: build # The folder the action should deploy.
