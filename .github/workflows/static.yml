@@ -12,21 +12,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Minify Javascript
-        uses: daniel-lundin/uglify-js-action@v2
+      - name: Minify JS, CSS, and HTML
+        uses: anthonyftwang/minify-action@v1.0.1
         with:
-          folder: 'dist/js'
-          recursive: true
-          options: |
-            --compress
-            --mangle
-      
-      - name: Minify CSS
-        run: npm run build:css
-      
-      - name: Minify HTML
-        run: npm run build:html
-      
+          source: |
+            ./dist/**/*.js
+            ./dist/**/*.css
+            ./dist/**/*.html
+          html-minifier-options: |
+            --collapse-whitespace
+            --remove-comments
+          css-minifier-options: |
+            --compatibility=ie8
+            --skip-cleaning
+          
       - name: Deploy to GH Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
