@@ -25,11 +25,6 @@ jobs:
       - name: Minify Action
         uses: anthonyftwang/minify-action@v1.0.1
 
-      - uses: MarketingPipeline/Image-Optimizer-Action@main
-        with:
-          filename: img/
-          recursion: true
-
       - run: |
           touch .nojekyll
           find . -name "*.md" -type f -delete
