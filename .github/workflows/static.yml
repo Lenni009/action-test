@@ -10,12 +10,13 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Minify Action
-        uses: anthonyftwang/minify-action@v1.0.1
-
-      # Auto-commit to repository
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Auto Minify
+        uses: nizarmah/auto-minify@v2.1
         with:
-          commit_message: Minify source code
-          branch: ${{ github.ref }}
-        
+          output: 'build'
+          overwrite: true
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy.
