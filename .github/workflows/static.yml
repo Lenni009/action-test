@@ -27,7 +27,7 @@ jobs:
 
       - uses: MarketingPipeline/Image-Optimizer-Action@main
         with:
-          filename: /img/
+          filename: img/
           recursion: true
 
       - run: |
