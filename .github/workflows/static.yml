@@ -12,15 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-name: Minify Workflow
-on:
-  push:
-    branches: [ foo ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
       # Checks-out your repository
       - uses: actions/checkout@v2
         with:
