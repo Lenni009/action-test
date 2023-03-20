@@ -14,7 +14,6 @@ jobs:
         uses: nizarmah/auto-minify@v2.1
         with:
           output: 'build'
-          overwrite: true
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
