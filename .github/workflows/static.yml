@@ -1,0 +1,34 @@
+name: Minify and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Minify Javascript
+        uses: daniel-lundin/uglify-js-action@v2
+        with:
+          folder: 'dist/js'
+          recursive: true
+          options: |
+            --compress
+            --mangle
+      
+      - name: Minify CSS
+        run: npm run build:css
+      
+      - name: Minify HTML
+        run: npm run build:html
+      
+      - name: Deploy to GH Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
