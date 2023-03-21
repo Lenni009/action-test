@@ -24,7 +24,9 @@ jobs:
 
       - name: Minify Nr. 2
         uses: Lenni009/minify-js@main
-          
+        with:
+          overwrite: true
+
       - run: |
           touch .nojekyll
           find . -name "*.md" -type f -delete
