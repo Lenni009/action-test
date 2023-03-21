@@ -23,9 +23,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Minify Nr. 2
-        uses: nizarmah/auto-minify@v2.1.1
-        with:
-          overwrite: true
+        uses: Lenni009/minify-js@main
           
       - run: |
           touch .nojekyll
