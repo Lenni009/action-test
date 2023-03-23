@@ -1,0 +1,1 @@
+const fs=require("fs"),HTMLParser=require("node-html-parser"),inputFile=process.argv[2],inputFileContent=fs.readFileSync(inputFile,"utf8"),regex=/(?:\t+|\r\n|\r|\n)+/g,dom=HTMLParser.parse(inputFileContent).removeWhitespace(),output=dom.toString().replace(regex," ");process.stdout.write(output);
