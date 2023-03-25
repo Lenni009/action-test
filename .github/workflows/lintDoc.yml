@@ -37,6 +37,7 @@ jobs:
             echo "this is empty!!"
             exit 1
           fi
+      # have an eye on https://github.com/actions/runner/issues/662 to avoid the if statements
       - if: failure()
         uses: mshick/add-pr-comment@v2
         with:
