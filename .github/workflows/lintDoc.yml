@@ -1,6 +1,5 @@
 on:
-  push:
-    branches: ['main']
+  pull_request:
 
 jobs:
   test:
@@ -13,5 +12,23 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
       - name: Lint JSDoc Comments
-        uses: Lenni009/jsdoc2wiki-action@main
+        run: |
+          npm install -g documentation
+          documentation lint src/**/*.js >> $GITHUB_OUTPUT
+
+      - name: Check if GITHUB_OUTPUT is empty
+        run: |
+          if [ -z "${GITHUB_OUTPUT}" ]; then
+            exit 0
+          fi
+
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: ${{ GITHUB_OUTPUT }}
+      - run: exit 1
