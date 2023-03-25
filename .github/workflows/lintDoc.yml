@@ -21,4 +21,4 @@ jobs:
       - name: Lint JSDoc Comments
         run: |
           npm install -g documentation
-          echo < documentation lint src/**/*.js
+          documentation lint src/**/*.js | xargs echo
