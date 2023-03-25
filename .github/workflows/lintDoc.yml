@@ -21,15 +21,15 @@ jobs:
       - name: Lint JSDoc Comments
         run: |
           npm install -g documentation
-          documentation lint src/**/*.js >> $GITHUB_OUTPUT
+          echo "{lint_out}=$(documentation lint src/**/*.js)" >> $GITHUB_ENV
 
-      - name: Check if GITHUB_OUTPUT is empty
+      - name: Check if lint_out is empty
         run: |
-          if [ -z "${GITHUB_OUTPUT}" ]; then
+          if [ -z "${lint_out}" ]; then
             exit 0
           fi
 
       - uses: mshick/add-pr-comment@v2
         with:
-          message: $GITHUB_OUTPUT
+          message: ${{ env.lint_out }}
       - run: exit 1
