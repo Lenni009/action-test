@@ -25,7 +25,7 @@ jobs:
       - name: Build Documentation Files
         run: |
           npm install -g jsdoc jsdoc-to-markdown
-          mkdir Documentation
+          mkdir documentation
           jsdoc2md ./**/*.js | sed 's/ÔçÆ/⇒/g' > documentation/Functions.md
 
       - name: Upload Documentation to Wiki
