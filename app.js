@@ -5,11 +5,41 @@ document.getElementById('app').insertAdjacentHTML('afterbegin', 'Baum');
 console.log("ÄÄh nein");
 
 /**
- * This function calculates the sum, average, minimum, and maximum of a set of numbers, and formats the results for display on a web page. If no arguments are provided, the function will automatically find and calculate the numbers for all elements with the `numberStats` property.
+ * Returns the next available child index of an array of objects, based on a given property.
  *
- * @param {HTMLElement} element - The HTML element to calculate statistics for.
- * @param {number} [decimals=null] - The number of decimal places to use in formatted results. If `null`, the function will use the default number of decimal places.
- * @param {boolean} [outputRaw=false] - Whether to output the raw calculation values along with the formatted results. If `true`, the function will return an object with `formatted` and `raw` properties; if `false`, it will return only the formatted string.
- * @returns {string|Object} The formatted statistics string (and optionally, the raw calculation values).
+ * @param {Array} array - The array of objects to check.
+ * @param {string} data - The path to the property to check for an index, in dot notation (e.g. 'dataset.planet').
+ * @returns {number} - The next available child index.
  */
-document.getElementById('app').insertAdjacentHTML('beforeend', 1 + 1);
+function getChildIndex(array, data) {
+	const IDs = [0];	// dummy element to avoid if statement
+	for (const element of array) {
+		const idNumber = extractNumber(fetchFromObject(element, data));	// get all numbers of the string into an array, then join that array
+		IDs.push(parseInt(idNumber));
+	}
+	function compareNumbers(a, b) {
+		return a - b;
+	}
+	IDs.sort(compareNumbers);
+	return IDs[IDs.length - 1] + 1;
+
+	// necessary to access properties of different depths of an element
+	// takes an object and a string representing the path to the property in dot notation ('dataset.planet')
+	// code from https://stackoverflow.com/questions/4255472/javascript-object-access-variable-property-by-name-as-string
+	function fetchFromObject(obj, prop) {
+		//property not found
+		if (typeof obj === 'undefined') return false;
+
+		//index of next property split
+		const index = prop.indexOf('.');
+
+		//property split found; recursive call
+		if (index > -1) {
+			//get object at property (before split), pass on remainder
+			return fetchFromObject(obj[prop.substring(0, index)], prop.substr(index + 1));
+		}
+
+		//no split; get property
+		return obj[prop];
+	}
+}
