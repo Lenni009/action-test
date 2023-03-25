@@ -33,12 +33,13 @@ jobs:
 
       - name: Check if lintOut.txt is empty
         run: |
-          if [ ! -s lintOut.txt ]; then
+          if [ -s lintOut.txt ]; then
             echo "this is empty!!"
-            exit 0
+            exit 1
           fi
-
-      - uses: mshick/add-pr-comment@v2
+      - if: failure()
+        uses: mshick/add-pr-comment@v2
         with:
           message-path: lintOut.txt
-      - run: exit 1
+      - if: failure()
+        run: exit 1
