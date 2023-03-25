@@ -1,1 +1,1 @@
-document.getElementById("app").insertAdjacentHTML("afterbegin","Baum"),console.log("ÄÄh nein"),document.getElementById("app").insertAdjacentHTML("beforeend",2);
+function getChildIndex(n,t){const e=[0];for(const o of n){const n=extractNumber(r(o,t));e.push(parseInt(n))}return e.sort((function(n,t){return n-t})),e[e.length-1]+1;function r(n,t){if(void 0===n)return!1;const e=t.indexOf(".");return e>-1?r(n[t.substring(0,e)],t.substr(e+1)):n[t]}}document.getElementById("app").insertAdjacentHTML("afterbegin","Baum"),console.log("ÄÄh nein");
