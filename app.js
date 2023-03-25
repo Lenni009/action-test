@@ -12,4 +12,6 @@ console.log("ÄÄh nein");
  * @param {boolean} [outputRaw=false] - Whether to output the raw calculation values along with the formatted results. If `true`, the function will return an object with `formatted` and `raw` properties; if `false`, it will return only the formatted string.
  * @returns {string|Object} The formatted statistics string (and optionally, the raw calculation values).
  */
-document.getElementById('app').insertAdjacentHTML('beforeend', 1 + 1);
+function doStuff() {
+	document.getElementById('app').insertAdjacentHTML('beforeend', 1 + 1);
+}
