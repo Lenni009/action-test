@@ -25,7 +25,7 @@ jobs:
 
       - name: Check if lint_out is empty
         run: |
-          echo ${{ env.lint_out }}
+          echo ${lint_out}
           if [ -z "${lint_out}" ]; then
             exit 0
           fi
