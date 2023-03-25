@@ -28,7 +28,7 @@ jobs:
       - name: Lint JSDoc Comments
         run: |
           touch lintOut.txt
-          documentation lint src/**/*.js | sponge lintOut.txt
+          documentation lint ./**/*.js | sponge lintOut.txt
           cat lintOut.txt
 
       - name: Check if lintOut.txt is empty
