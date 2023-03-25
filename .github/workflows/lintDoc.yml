@@ -1,6 +1,6 @@
 on:
   pull_request:
-    types: [synchronize]
+    types: [opened, synchronize, edited]
 
 jobs:
   test:
@@ -8,6 +8,7 @@ jobs:
 
     permissions:
       pull-requests: write
+      contents: write
 
     steps:
       - name: Checkout 🛎️
@@ -18,18 +19,26 @@ jobs:
         with:
           node-version: 16
 
+      - name: Setup Env
+        run: |
+          sudo apt update
+          sudo apt install moreutils -y
+          npm install -g documentation
+
       - name: Lint JSDoc Comments
         run: |
-          npm install -g documentation
-          documentation lint src/**/*.js >> $GITHUB_OUTPUT
+          touch lintOut.txt
+          documentation lint ./**/*.js | sponge lintOut.txt
 
-      - name: Check if GITHUB_OUTPUT is empty
+      - name: Check if lintOut.txt is empty
         run: |
-          if [ -z "${GITHUB_OUTPUT}" ]; then
-            exit 0
+          if [ -s lintOut.txt ]; then # check if not empty
+            exit 1
           fi
-
-      - uses: mshick/add-pr-comment@v2
+      # have an eye on https://github.com/actions/runner/issues/662 to avoid the if statements
+      - if: failure()
+        uses: mshick/add-pr-comment@v2
         with:
-          message: $GITHUB_OUTPUT
-      - run: exit 1
+          message-path: lintOut.txt
+      - if: failure()
+        run: exit 1
