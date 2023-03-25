@@ -8,6 +8,7 @@ jobs:
 
     permissions:
       pull-requests: write
+      contents: write
 
     steps:
       - name: Checkout 🛎️
@@ -17,7 +18,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      
+
       - name: Setup Env
         run: |
           apt update
