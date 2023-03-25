@@ -28,7 +28,7 @@ jobs:
           mkdir documentation
           for file in $(find . -name "*.js")
           do
-            jsdoc2md "${file}" | sed 's/ÔçÆ/⇒/g' >> wiki.md
+            jsdoc2md "${file}" | sed 's/ÔçÆ/⇒/g' >> documentation/${file}.md
           done
 
       - name: Upload Documentation to Wiki
