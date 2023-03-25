@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    permissions:
+      contents: write
+    
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
@@ -22,7 +25,8 @@ jobs:
       - name: Build Documentation Files
         run: |
           npm install -g documentation
-          documentation build ./**/*.js -f md --github /Documentation/functions.md
+          mkdir Documentation
+          documentation build ./**/*.js -f md --github -o Documentation/functions.md
 
       - name: Upload Documentation to Wiki
         uses: SwiftDocOrg/github-wiki-publish-action@v1
