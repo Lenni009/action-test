@@ -14,26 +14,4 @@ jobs:
       contents: write
     
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Build Documentation Files
-        run: |
-          npm install -g jsdoc jsdoc-to-markdown
-          mkdir documentation
-          for file in $(find . -name "*.js")
-          do
-            jsdoc2md "${file}" > documentation/${file}.md
-          done
-
-      - name: Upload Documentation to Wiki
-        uses: SwiftDocOrg/github-wiki-publish-action@v1
-        with:
-          path: "documentation"
-        env:
-          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
+      - uses: Lenni009/jsdoc2wiki-action/create-doc@main
