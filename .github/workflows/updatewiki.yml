@@ -26,7 +26,10 @@ jobs:
         run: |
           npm install -g jsdoc jsdoc-to-markdown
           mkdir documentation
-          jsdoc2md ./**/*.js | sed 's/ÔçÆ/⇒/g' > documentation/Functions.md
+          for file in $(find . -name "*.js")
+          do
+            jsdoc2md "${file}" | sed 's/ÔçÆ/⇒/g' >> wiki.md
+          done
 
       - name: Upload Documentation to Wiki
         uses: SwiftDocOrg/github-wiki-publish-action@v1
