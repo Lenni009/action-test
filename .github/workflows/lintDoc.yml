@@ -11,34 +11,4 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v3
-
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Setup Env
-        run: |
-          sudo apt update
-          sudo apt install moreutils -y
-          npm install -g documentation
-
-      - name: Lint JSDoc Comments
-        run: |
-          touch lintOut.txt
-          documentation lint ./**/*.js | sponge lintOut.txt
-
-      - name: Check if lintOut.txt is empty
-        run: |
-          if [ -s lintOut.txt ]; then # check if not empty
-            exit 1
-          fi
-      # have an eye on https://github.com/actions/runner/issues/662 to avoid the if statements
-      - if: failure()
-        uses: mshick/add-pr-comment@v2
-        with:
-          message-path: lintOut.txt
-      - if: failure()
-        run: exit 1
+      - uses: Lenni009/jsdoc2wiki-action/lint-doc@main
