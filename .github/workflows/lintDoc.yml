@@ -11,4 +11,8 @@ jobs:
       contents: write
 
     steps:
-      - uses: Lenni009/jsdoc2wiki-action/lint-doc@main
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Lint JSDoc Comments
+        uses: Lenni009/jsdoc2wiki-action/lint-doc@main
