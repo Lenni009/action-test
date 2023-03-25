@@ -17,21 +17,25 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      
+      - name: Setup Env
+        run: |
+          apt update
+          apt install moreutils -y
+          npm install -g documentation
 
       - name: Lint JSDoc Comments
         run: |
-          npm install -g documentation
-          echo "{lint_out}=$(documentation lint src/**/*.js)" >> $GITHUB_ENV
+          touch lintOut.txt
+          documentation lint src/**/*.js | sponge lintOut.txt
 
-      - name: Check if lint_out is empty
+      - name: Check if lintOut.txt is empty
         run: |
-          echo "${{ env.lint_out }}" 
-          if [ -z "${lint_out}" ]; then
+          if [ ! -s lintOut.txt ]; then
             exit 0
           fi
 
       - uses: mshick/add-pr-comment@v2
         with:
-          message: |
-            ${{ env.lint_out }}
+          message-path: lintOut.txt
       - run: exit 1
