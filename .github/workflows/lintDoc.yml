@@ -27,16 +27,16 @@ jobs:
 
       - name: Lint JSDoc Comments
         run: |
-          touch lintOut.txt
-          documentation lint src/**/*.js | sponge lintOut.txt
+          touch ./lintOut.txt
+          documentation lint src/**/*.js | sponge ./lintOut.txt
 
       - name: Check if lintOut.txt is empty
         run: |
-          if [ ! -s lintOut.txt ]; then
+          if [ ! -s ./lintOut.txt ]; then
             exit 0
           fi
 
       - uses: mshick/add-pr-comment@v2
         with:
-          message-path: lintOut.txt
+          message-path: ./lintOut.txt
       - run: exit 1
