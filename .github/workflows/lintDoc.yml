@@ -31,5 +31,6 @@ jobs:
 
       - uses: mshick/add-pr-comment@v2
         with:
-          message: ${{ env.lint_out }}
+          message: |
+            ${{ env.lint_out }}
       - run: exit 1
