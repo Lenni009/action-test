@@ -1,6 +1,6 @@
 document.getElementById('app').insertAdjacentHTML('afterbegin', 'Baum');
 
-// this is a comment
+// this is a comment ah yes
 
 console.log("ÄÄh nein");
 
