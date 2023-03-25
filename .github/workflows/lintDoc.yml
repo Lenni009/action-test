@@ -32,6 +32,7 @@ jobs:
 
       - name: Check if lintOut.txt is empty
         run: |
+          cat ./lintOut.txt
           if [ ! -s ./lintOut.txt ]; then
             exit 0
           fi
