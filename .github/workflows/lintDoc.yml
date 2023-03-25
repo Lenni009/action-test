@@ -13,12 +13,5 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Setup NodeJS
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
       - name: Lint JSDoc Comments
-        run: |
-          npm install -g documentation
-          documentation lint ./**/*.js
+        uses: Lenni009/jsdoc2wiki-action@main
