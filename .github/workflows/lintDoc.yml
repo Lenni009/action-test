@@ -29,12 +29,10 @@ jobs:
         run: |
           touch lintOut.txt
           documentation lint ./**/*.js | sponge lintOut.txt
-          stat --printf="%s" lintOut.txt
 
       - name: Check if lintOut.txt is empty
         run: |
-          if [ -s lintOut.txt ]; then
-            echo "this is empty!!"
+          if [ -s lintOut.txt ]; then # check if not empty
             exit 1
           fi
       # have an eye on https://github.com/actions/runner/issues/662 to avoid the if statements
