@@ -30,6 +30,7 @@ jobs:
       - run: |
           touch .nojekyll
           find . -name "*.md" -type f -delete
+          echo "{{ vars.CNAME }}" > CNAME
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
