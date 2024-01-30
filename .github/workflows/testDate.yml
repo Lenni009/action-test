@@ -26,8 +26,8 @@ jobs:
       - name: Do stuff
         run: |
           date -d "$(date)" +"%s"
-          date -d "2023-04-29" +"%s"
-          if [ date -d "$(date)" +"%s" < date -d "2023-04-29" +"%s" ]; then
+          date -d "2024-04-29" +"%s"
+          if [ date -d "$(date)" +"%s" < date -d "2024-04-29" +"%s" ]; then
             echo 'late!'
           else
             echo 'early!'
