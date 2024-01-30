@@ -1,0 +1,32 @@
+name: Build
+
+run-name: Build Code
+
+on:
+  push:
+    branches: ['main']
+  schedule:
+    - cron: '20 23 28 04 *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: 'build'
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Hide Editor
+        if: '[[ (date -d "$(date)" +"%s") > (date -d "29/04/2023" +"%s") ]]'
+        run: echo 'late!'
+
+      - name: Hide Editor
+        if: '[[ (date -d "$(date)" +"%s") < (date -d "29/04/2023" +"%s") ]]'
+        run: echo 'early!'
