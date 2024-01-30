@@ -25,11 +25,11 @@ jobs:
 
       - name: Do stuff
         run: |
-          dead=$(date -d "$(date)" +%s)
-          current=$(date -d 2024-04-29 +%s)
+          current=$(date -d "$(date)" +%s)
+          dead=$(date -d 2024-04-29 +%s)
 
-          if [ $dead -ge $current ];
-          then
+          if [ $dead -ge $current ]
+            then
               echo "early"
             else
               echo "late"
