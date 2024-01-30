@@ -25,10 +25,10 @@ jobs:
 
       - name: Do stuff
         run: |
-          todate=$(date -d "$(date)" +%s)
-          cond=$(date -d 2024-04-29 +%s)
+          current=$(date -d "$(date)" +%s)
+          dead=$(date -d 2024-04-29 +%s)
 
-          if [ $todate -ge $cond ];
+          if [ $current -ge $dead ];
           then
               echo "early"
             else
