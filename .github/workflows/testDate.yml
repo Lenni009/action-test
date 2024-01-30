@@ -28,7 +28,7 @@ jobs:
           current=$(date -d "$(date)" +%s)
           dead=$(date -d 2024-04-29 +%s)
 
-          if [ $current -ge $dead ]
+          if [ $dead -ge $current ]
             then
               echo "setting env"
             else
