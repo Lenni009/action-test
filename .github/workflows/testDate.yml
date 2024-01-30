@@ -23,10 +23,10 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Hide Editor
-        if: '[ (date -d "$(date)" +"%s") > (date -d "29/04/2023" +"%s") ]'
-        run: echo 'late!'
-
-      - name: Hide Editor
-        if: '[ (date -d "$(date)" +"%s") < (date -d "29/04/2023" +"%s") ]'
-        run: echo 'early!'
+      - name: Do stuff
+        run: |
+          if [ (date -d "$(date)" +"%s") > (date -d "29/04/2023" +"%s") ]; then
+            echo 'late!'
+          else
+            echo 'early!'
+          fi
