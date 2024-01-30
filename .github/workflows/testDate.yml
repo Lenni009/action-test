@@ -26,11 +26,11 @@ jobs:
       - name: Do stuff
         run: |
           current=$(date -d "$(date)" +%s)
-          dead=$(date -d 2024-04-29 +%s)
+          dead=$(date -d 2024-01-29 +%s)
 
-          if [ $dead -ge $current ]
+          if [ $current -ge $dead ]
             then
-              echo "early"
+              echo "setting env"
             else
-              echo "late"
+              echo "not setting env"
           fi  
