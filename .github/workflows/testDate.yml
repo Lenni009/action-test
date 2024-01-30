@@ -24,9 +24,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Hide Editor
-        if: '[[ (date -d "$(date)" +"%s") > (date -d "29/04/2023" +"%s") ]]'
+        if: '[ (date -d "$(date)" +"%s") > (date -d "29/04/2023" +"%s") ]'
         run: echo 'late!'
 
       - name: Hide Editor
-        if: '[[ (date -d "$(date)" +"%s") < (date -d "29/04/2023" +"%s") ]]'
+        if: '[ (date -d "$(date)" +"%s") < (date -d "29/04/2023" +"%s") ]'
         run: echo 'early!'
