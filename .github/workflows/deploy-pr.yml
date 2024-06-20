@@ -29,9 +29,9 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          target-folder: pr/${{ github.event.number }} # The folder the action should deploy to.
+          target-folder: "pr/${{ github.event.number }}" # The folder the action should deploy to.
 
       - name: Add PR Comment
         uses: mshick/add-pr-comment@v2
         with:
-          message: 'Deployed to ${{ steps.pages.outputs.base_url }}/pr/${{ github.event.number }}'
+          message: "Deployed to ${{ steps.pages.outputs.base_url }}/pr/${{ github.event.number }}"
