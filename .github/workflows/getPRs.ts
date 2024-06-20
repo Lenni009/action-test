@@ -1,32 +1,40 @@
-import core from 'npm:@actions/core';
-import github from 'npm:@actions/github';
+import core from "npm:@actions/core";
+import github from "npm:@actions/github";
+import { RestEndpointMethodTypes } from "npm:@octokit/plugin-rest-endpoint-methods";
 
-async function listPullRequests(token: string, repoOwner: string, repo: string, state: string) {
-    const octokit = github.getOctokit(token);
-    const pullRequests = octokit.rest.pulls.list({
-      owner: repoOwner,
-      repo: repo,
-      state: state,
-      sort: 'created',
-      direction: 'desc',
-      per_page: 100,
-    });
-    return pullRequests;
-  }
+type PRListResponse = RestEndpointMethodTypes["pulls"]["list"]["response"];
 
-  function outputNumbers(list) {
-    let numberList = list.map(p => p.number);
-    core.setOutput('pullRequestNumbers', numberList);
-  }
+async function listPullRequests(
+  token: string,
+  repoOwner: string,
+  repo: string,
+  state: "open" | "closed" | "all"
+) {
+  const octokit = github.getOctokit(token);
+  const pullRequests = await octokit.rest.pulls.list({
+    repo,
+    state,
+    owner: repoOwner,
+    sort: "created",
+    direction: "desc",
+    per_page: 100,
+  });
+  return pullRequests;
+}
 
-  try {
-    const token = core.getInput('token');
-    const repoOwner = github.context.repo.owner;
-    const repo = github.context.repo.repo;
-    const state = core.getInput('state');
-    
-    const list = await listPullRequests(token, repoOwner, repo, state);
-    outputNumbers(list);
-  } catch (error: Error) {
-    core.setFailed(error.message);
-  }
+function outputRefs(list: PRListResponse) {
+  const refList = list.data.map((p) => ({ ref: p.head.ref, number: p.number }));
+  core.setOutput("pullRequestRefs", refList);
+}
+
+try {
+  const [token] = Deno.args;
+  const repoOwner = github.context.repo.owner;
+  const repo = github.context.repo.repo;
+  const state = "open";
+
+  const list = await listPullRequests(token, repoOwner, repo, state);
+  outputRefs(list);
+} catch (error) {
+  core.setFailed(error.message);
+}
