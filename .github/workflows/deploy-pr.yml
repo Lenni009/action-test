@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
     #  - name: Build App
-    #    run: touch .nojekyll # custom build commands here
+    #    run:  # custom build commands here
 
       - name: Get GH Pages URL
         id: pages

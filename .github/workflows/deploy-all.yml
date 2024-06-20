@@ -15,8 +15,7 @@ concurrency:
 
 # You should only need to touch these two variables
 env:
-  buildCommand: |
-    echo hi
+  # buildCommand:  # your build command
   buildOutput: . # optionally "dist" if build step is needed
 
 jobs:
@@ -28,8 +27,8 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Build App
-        run: ${{ env.buildCommand }}
+      # - name: Build App
+      #   run: ${{ env.buildCommand }}
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
@@ -55,7 +54,6 @@ jobs:
         run: |
           data=$(deno run --allow-net .github/workflows/getPRs.ts ${{ github.repository }} ${{ secrets.GITHUB_TOKEN }}) # output: pullRequestData: {ref: string, number: number}[]
           echo "pullRequestData=$data" >> "$GITHUB_OUTPUT"
-          echo "$data"
 
   build-pr:
     runs-on: ubuntu-latest
@@ -73,8 +71,8 @@ jobs:
         with:
           ref: ${{ matrix.data.ref }}
 
-      - name: Build App
-        run: ${{ env.buildCommand }}
+      # - name: Build App
+      #   run: ${{ env.buildCommand }}
 
       - name: Upload App
         uses: actions/upload-artifact@v4
@@ -90,22 +88,18 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
-      
+
       - name: Download App
         uses: actions/download-artifact@v4
         with:
           path: dist/pr
-
-      - run: |
-          ls dist/pr/main
 
       - name: Move Main Deployment
         run: |
           cd dist
           cp -r pr/main/* .
           rm -rf pr/main
-          ls
-          ls pr
+          touch .nojekyll
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
