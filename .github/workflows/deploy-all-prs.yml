@@ -34,7 +34,7 @@ jobs:
           echo "pullRequestData=$data" >> "$GITHUB_OUTPUT"
           echo "$data"
 
-  deploy:
+  build:
     runs-on: ubuntu-latest
     needs: getPRs
     # GH Actions outputs are strings, so we can just compare this to an empty array string. `.length` does not seem to work when parsing the array.
@@ -51,10 +51,30 @@ jobs:
           ref: ${{ matrix.data.ref }}
 
       - name: Build App
-        run: touch .nojekyll
+        run: touch .nojekyll  # put any required build scripts here
+
+      - name: Upload App
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.data.number }}
+          path: . # replace this with the path to your built code if needed
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Download App
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*'
+          path: pr
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: .
-          target-folder: "pr/${{ matrix.data.number }}" # The folder the action should deploy to.
+          target-folder: pr # The folder the action should deploy to.
