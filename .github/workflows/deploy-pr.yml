@@ -34,4 +34,4 @@ jobs:
       - name: Add PR Comment
         uses: mshick/add-pr-comment@v2
         with:
-          message: "Deployed to ${{ steps.pages.outputs.base_url }}/pr/${{ github.event.number }}"
+          message: "Deployed to ${{ steps.pages.outputs.base_url }}/pr/${{ github.event.number }}/"
