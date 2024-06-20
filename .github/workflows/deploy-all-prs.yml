@@ -29,7 +29,9 @@ jobs:
 
       - name: Get PR Data
         id: data
-        run: deno run --allow-net .github/workflows/getPRs.ts ${{ secrets.GITHUB_TOKEN }} # output: pullRequestData: {ref: string, number: number}[]
+        run: |
+          echo "GITHUB_REPOSITORY=${{ github.event.repository.owner }}/${{ github.event.repository.name }}" >> $GITHUB_ENV
+          deno run --allow-net .github/workflows/getPRs.ts ${{ secrets.GITHUB_TOKEN }} # output: pullRequestData: {ref: string, number: number}[]
 
   deploy:
     runs-on: ubuntu-latest
