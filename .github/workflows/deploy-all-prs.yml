@@ -37,7 +37,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: getPRs
-    if: fromJson(needs.getPRs.outputs.prData).length != 0
+    # GH Actions outputs are strings, so we can just compare this to an empty array string. `.length` does not seem to work when parsing the array.
+    if: needs.getPRs.outputs.prData != '[]'
 
     strategy:
       matrix:
