@@ -84,7 +84,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ !cancelled() }}
+    if: ${{ !cancelled() && !failure() }}
     needs: ["build-main", "build-pr"]
 
     steps:
