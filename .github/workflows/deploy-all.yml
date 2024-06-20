@@ -97,14 +97,14 @@ jobs:
           path: dist/pr
 
       - run: |
-          ls dist
-          ls dist/pr
+          ls dist/pr/main
 
       - name: Move Main Deployment
         run: |
           cd dist
           cp -r pr/main/* .
           rm -rf pr/main
+          ls
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
