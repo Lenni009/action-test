@@ -16,7 +16,7 @@ concurrency:
 # You should only need to touch these two variables
 env:
   buildCommand: |
-    touch .nojekyll
+    echo hi
   buildOutput: . # optionally "dist" if build step is needed
 
 jobs:
