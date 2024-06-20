@@ -23,8 +23,8 @@ async function listPullRequests(
 }
 
 function outputRefs(list: PRListResponse) {
-  const refList = list.data.map((p) => ({ ref: p.head.ref, number: p.number }));
-  core.setOutput("pullRequestData", refList);
+  const prDataList = list.data.map((p) => ({ ref: p.head.ref, number: p.number }));
+  core.setOutput("pullRequestData", prDataList);
 }
 
 try {
