@@ -1,12 +1,10 @@
-name: Build
+name: Deploy PR
 
-run-name: Build Code
+run-name: Deploy PR
 
 on:
   pull_request:
     types: ['opened', 'synchronize']
-  push:
-    branches: ['main']
 
 permissions:
   contents: write
@@ -29,6 +27,7 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          folder: .
           target-folder: "pr/${{ github.event.number }}" # The folder the action should deploy to.
 
       - name: Add PR Comment
