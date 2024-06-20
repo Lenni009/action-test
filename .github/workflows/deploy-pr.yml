@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   build:
@@ -18,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build App
-        run: touch .nojekyll
+        run: touch .nojekyll  # custom build commands here
 
       - name: Get GH Pages URL
         id: pages
@@ -33,4 +34,4 @@ jobs:
       - name: Add PR Comment
         uses: mshick/add-pr-comment@v2
         with:
-          message: "Deployed to ${{ steps.pages.outputs.base_url }}/pr/${{ github.event.number }}"
+          message: "Deployed to ${{ steps.pages.outputs.base_url }}/pr/${{ github.event.number }}/"
