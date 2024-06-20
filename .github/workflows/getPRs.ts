@@ -27,7 +27,7 @@ function outputRefs(list: PRListResponse) {
     ref: p.head.ref,
     number: p.number,
   }));
-  core.setOutput("pullRequestData", prDataList);
+  console.log(prDataList);
 }
 
 try {
