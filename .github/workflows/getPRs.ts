@@ -1,4 +1,4 @@
-import core from "npm:@actions/core";
+import core from "npm:@actions/core@1.10.1";
 import github from "npm:@actions/github";
 import { RestEndpointMethodTypes } from "npm:@octokit/plugin-rest-endpoint-methods";
 
