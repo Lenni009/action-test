@@ -23,14 +23,15 @@ async function listPullRequests(
 }
 
 function outputRefs(list: PRListResponse) {
-  const prDataList = list.data.map((p) => ({ ref: p.head.ref, number: p.number }));
+  const prDataList = list.data.map((p) => ({
+    ref: p.head.ref,
+    number: p.number,
+  }));
   core.setOutput("pullRequestData", prDataList);
 }
 
 try {
-  const [token] = Deno.args;
-  const repoOwner = github.context.repo.owner;
-  const repo = github.context.repo.repo;
+  const [repo, repoOwner, token] = Deno.args;
   const state = "open";
 
   const list = await listPullRequests(token, repoOwner, repo, state);
