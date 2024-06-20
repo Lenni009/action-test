@@ -91,10 +91,14 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
+      - run: ls dist
+      
       - name: Download App
         uses: actions/download-artifact@v4
         with:
           path: dist/pr
+
+      - run: ls dist
 
       - name: Move Main Deployment
         run: |
