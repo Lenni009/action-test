@@ -1,0 +1,30 @@
+name: Minify
+
+run-name: Minify Code
+
+on:
+  push:
+    branches: ['main']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "minify"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    environment: github-pages
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - run: touch .nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . # The folder the action should deploy.
