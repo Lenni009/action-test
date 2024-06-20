@@ -24,7 +24,7 @@ jobs:
 
       - name: Get GH Pages URL
         id: pages
-        uses: actions/configure-pages
+        uses: actions/configure-pages@v5
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
