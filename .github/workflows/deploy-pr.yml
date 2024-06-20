@@ -1,0 +1,37 @@
+name: Build
+
+run-name: Build Code
+
+on:
+  pull_request:
+    types: ['opened', 'synchronize']
+  push:
+    branches: ['main']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Build App
+        run: touch .nojekyll
+
+      - name: Get GH Pages URL
+        id: pages
+        uses: actions/configure-pages
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          target-folder: pr/${{ github.event.number }} # The folder the action should deploy to.
+
+      - name: Add PR Comment
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: 'Deployed to ${{ steps.pages.outputs.base_url }}/pr/${{ github.event.number }}'
