@@ -31,8 +31,8 @@ function outputRefs(list: PRListResponse) {
 }
 
 try {
-  const [repo, repoOwner, token] = Deno.args;
-  console.log(repo, repoOwner)
+  const [repoData, token] = Deno.args;
+  const [repoOwner, repo] = repoData.split("/");
   const state = "open";
 
   const list = await listPullRequests(token, repoOwner, repo, state);
